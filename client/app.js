@@ -44,8 +44,13 @@ const sendMessage = function (e) {
 		alert('Please add message')
 	} else {
 		addMessage(userName, messageContentInput.value)
+		socket.emit('message', { author: userName, content: messageContentInput.value })
 		messageContentInput.value = ''
 	}
 }
 
 addMessageForm.addEventListener('submit', sendMessage)
+
+// Add socket client
+const socket = io()
+socket.on('message', ({ author, content }) => addMessage(author, content))
