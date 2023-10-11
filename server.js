@@ -17,12 +17,14 @@ app.get('*', (req, res) => {
 
 io.on('connection', socket => {
 	console.log('New client! Its id – ' + socket.id)
+
 	socket.on('login', name => {
 		const id = socket.id
 		const newUser = Object.assign({ id: id }, name)
 		users.push(newUser)
-		console.log(users)
+		socket.broadcast.emit('message', { author: 'Chat Bot', content: `${name.name} has joined the conversation!` })
 	})
+
 	socket.on('message', message => {
 		console.log("Oh, I've got something from " + socket.id)
 		messages.push(message)
@@ -31,8 +33,6 @@ io.on('connection', socket => {
 	socket.on('disconnect', () => {
 		console.log('Oh, socket ' + socket.id + ' has left')
 		users = users.filter(user => user.id !== socket.id)
-
-		console.log(users)
 	})
 	console.log("I've added a listener on message and disconnect events \n")
 })

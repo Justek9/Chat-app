@@ -30,7 +30,7 @@ loginForm.addEventListener('submit', login)
 const addMessage = function (author, content) {
 	const message = `<li class="message message--received ${author === userName ? 'message--self' : ''}">
     <h3 class="message__author">${author === userName ? 'You' : author}</h3>
-    <div class="message__content">
+    <div class="message__content ${author === "Chat Bot" ? 'message--chat' : ''}">
         ${content}
     </div>
 </li>`
