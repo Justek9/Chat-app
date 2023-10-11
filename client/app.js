@@ -19,6 +19,7 @@ const login = function (e) {
 		userName = userNameInput.value
 		loginForm.classList.remove('show')
 		messagesSection.classList.add('show')
+		socket.emit('login', { name: userName })
 		return userName
 	}
 }
@@ -54,3 +55,4 @@ addMessageForm.addEventListener('submit', sendMessage)
 // Add socket client
 const socket = io()
 socket.on('message', ({ author, content }) => addMessage(author, content))
+socket.on('login', () => login())
