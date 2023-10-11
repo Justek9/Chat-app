@@ -10,6 +10,7 @@ const messageContentInput = document.querySelector('#message-content')
 
 let userName
 
+// LOGIN
 const login = function (e) {
 	e.preventDefault()
 	if (!userNameInput.value) {
@@ -23,3 +24,28 @@ const login = function (e) {
 }
 
 loginForm.addEventListener('submit', login)
+
+// SEND MESSAGE
+const addMessage = function (author, content) {
+	const message = `<li class="message message--received ${author === userName ? 'message--self' : ''}">
+    <h3 class="message__author">${author === userName ? 'You' : author}</h3>
+    <div class="message__content">
+        ${content}
+    </div>
+</li>`
+
+	let messageHTML = utils.createDOMFromHTML(message, 'li')
+	messagesList.appendChild(messageHTML)
+}
+
+const sendMessage = function (e) {
+	e.preventDefault()
+	if (!messageContentInput) {
+		alert('Please add message')
+	} else {
+		addMessage(userName, messageContentInput.value)
+		messageContentInput.value = ''
+	}
+}
+
+addMessageForm.addEventListener('submit', sendMessage)
