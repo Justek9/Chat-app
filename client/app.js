@@ -40,7 +40,7 @@ const addMessage = function (author, content) {
 
 const sendMessage = function (e) {
 	e.preventDefault()
-	if (!messageContentInput) {
+	if (!messageContentInput.value) {
 		alert('Please add message')
 	} else {
 		addMessage(userName, messageContentInput.value)
